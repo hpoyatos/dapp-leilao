@@ -1,3 +1,13 @@
+Dapp-Leilao
+
+Autor: Henrique Poyatos <hpoyatos@yahoo.com.br>
+web3 version: 0.20.7
+
+Dapp de Leilão utilizando web3 e React
+UI: React Semantic UI
+
+Funciona em Metamask, Cipher e Coinbase Wallet (este último possui bugs).
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
