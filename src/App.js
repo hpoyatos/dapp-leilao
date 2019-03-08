@@ -39,7 +39,7 @@ class App extends Component {
 
     this.state.web3 = web3;
     var FiapTokenContractAddress = "0x1d900fcb6375a9cecEBa0eEE09332d042548D997";
-    var LeilaoContractAddress = "0x9c0b5b69357a18E56B41ca5D674f8FF6D61383E9";
+    var LeilaoContractAddress = "0xEc9aEDF8161595E4CE16412D8C23847D4314bac2";
     // creation of contract object
     var LeilaoContractABI = web3.eth.contract(LeilaoContractABIJSON.abi);
     // initiate contract for an address
@@ -244,7 +244,7 @@ class App extends Component {
                               <Table.Row key = {key}>
                                   <Table.Cell>{item.nome}</Table.Cell>
                                   <Table.Cell>{item.ganhadorNome}</Table.Cell>
-                                  <Table.Cell>{item.ganhadorLance}</Table.Cell>
+                                  <Table.Cell>{item.ganhadorLance} FIAP</Table.Cell>
                               </Table.Row>)
                         })}
                         </Table.Body>
