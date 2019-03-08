@@ -30,7 +30,9 @@ class LeilaoAtivo extends Component {
       carteira: this.props.carteira,
       seuMelhorLance: 0,
       messageSuccess: '',
-      messageError: ''
+      messageError: '',
+      pode: true,
+      limite: 50
     };
 
     this.parentAtualizarSaldo = props.atualizarSaldo;
@@ -138,21 +140,25 @@ class LeilaoAtivo extends Component {
     }
 
     if (this.state.lance > (this.state.saldo*1 + this.state.seuMelhorLance*1)){
-      this.setState({semSaldo: true});
+      this.setState({semSaldo: true, pode: false});
     } else {
-      this.setState({semSaldo: false});
+      this.setState({semSaldo: false, pode: true});
     }
   }
 
   onLanceChanged = e => {
-    this.setState({lance: e.target.value, messageSuccess: '', messageError: ''});
+    this.setState({lance: e.target.value, pode: true, messageSuccess: '', messageError: ''});
   }
 
   onLanceBlur = e => {
     if (this.state.lance > (this.state.saldo*1 + this.state.seuMelhorLance*1)){
-      this.setState({messageError: "Você não tem saldo para este lance."});
+      this.setState({messageError: "Você não tem saldo para este lance.", pode: false});
     } else {
-      this.setState({messageError: ""});
+      if (this.state.lance > this.state.maiorLance*1 + this.state.limite) {
+        this.setState({messageError: "Lance inválido. Valor muito alto.", pode: false});
+      } else {
+      	this.setState({messageError: "", pode: true});
+      }
     }
   }
 
@@ -196,10 +202,10 @@ class LeilaoAtivo extends Component {
                     {!this.state.loading ?
                     (<div className="ui action input">
                       <input type="text" onBlur={this.onLanceBlur} onChange={this.onLanceChanged} value={this.state.lance} />
-                      {!this.state.semSaldo ?
-                        (<button color="blue" className="ui button" onClick = {this.onSubmitLance}>Dar Lance</button>)
+                      {!this.state.semSaldo && this.state.pode ?
+                       	(<button color="blue" className="ui button" onClick = {this.onSubmitLance}>Dar Lance</button>)
                       :
-                        (<button className="ui button" disabled>Sem Saldo</button>)
+                        (<button className="ui button" disabled>Não</button>)
                       }
                     </div>) : (<div><Dimmer active inverted>
                                       <Loader inverted>Realizando Lance ...</Loader>
